@@ -12,20 +12,21 @@ app.use(express.json())
 app.get("/",(req,res)=>{
     console.log("sucess")
 })
-app.post("/register",async (req,res)=>{
-try {
-    const user= await User.create({
-        name:req.body.name,
-        Email:req.body.email,
-        password:req.body.password,
-    })
-    res.json({status:"ok"})
-} catch (error) {
-    res.json({status:"error"})
-
-}
-}
-)
+app.post("/register", async (req, res) => {
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  
+      const user = await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: hashedPassword,
+      });
+  
+      res.json({ status: "ok" });
+    } catch (error) {
+      res.json({ status: "error", message: error.message });
+    }
+  });
 
 
 
