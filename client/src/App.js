@@ -1,9 +1,13 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Register from './pages/Register';
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/signup" element={<Register />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
