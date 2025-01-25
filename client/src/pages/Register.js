@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
+import {useNavigate,Link} from 'react-router-dom'
 import axios from 'axios';
 import "./register.css"
 function Register() {
@@ -8,7 +9,7 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-
+  const navigate=useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -38,6 +39,7 @@ function Register() {
       setPassword("");
       setConfirmPassword("");
       setError(null);
+      navigate("/login")
     } catch (err) {
       if (err.response && err.response.data) {
         setError(err.response.data.message || "Registration failed!");
@@ -90,6 +92,7 @@ function Register() {
         <button className="button" type="submit">
           Register
         </button>
+       <p><Link to="/login">Have an account ? </Link></p> 
       </form>
     </div>
   );
