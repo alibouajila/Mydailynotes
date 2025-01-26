@@ -1,15 +1,21 @@
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
 import {useNavigate,Link} from 'react-router-dom'
 import axios from 'axios';
 import "./register.css"
 function Register() {
+  const navigate=useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      navigate('/home');
+    }
+  }, [navigate]);                                                             
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const navigate=useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -49,7 +55,7 @@ function Register() {
     }
   };
 
-  return (
+  return (<>
     <div className="container">
       <h2>Register!</h2>
 
@@ -94,7 +100,7 @@ function Register() {
         </button>
        <p><Link to="/login">Have an account ? </Link></p> 
       </form>
-    </div>
+    </div></>
   );
 }
 

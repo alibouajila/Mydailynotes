@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useContext,useEffect} from 'react';
+import { useNavigate,Link } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 import axios from 'axios';
 import './login.css';
+
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // Use context's login function
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,28 +23,33 @@ function Login() {
     try {
       const response = await axios.post('http://localhost:3001/login', loginData);
 
-      setSuccess('Login successful!');
-      setEmail('');
-      setPassword('');
-      setError(null);
+      const { token } = response.data;  // Adjust according to your response structure
 
-      navigate('/Home'); 
-    } catch (err) {
-      if (err.response && err.response.data) {
-        setError(err.response.data.message || 'Login failed!');
+      if (token) {
+        login(token); // Call the context's login function
+        setSuccess('Login successful!');
+        setEmail('');
+        setPassword('');
+        setError(null);
+        navigate('/Home'); // Redirect to Home page
       } else {
-        setError('An error occurred, please try again.');
+        setError('Invalid credentials!');
       }
+    } catch (err) {
+      setError(err.response?.data?.message || 'Login failed!');
     }
   };
-
+  useEffect(() => {
+    const token = localStorage.getItem('authToken');
+    if (token) {
+      navigate('/home'); // Redirect to home if logged in
+    }
+  }, [navigate]);
   return (
     <div className="login-container">
       <h2>Login</h2>
-
       {error && <p className="error">{error}</p>}
       {success && <p className="success">{success}</p>}
-
       <form onSubmit={handleSubmit}>
         <input
           className="input"
@@ -62,11 +70,8 @@ function Login() {
         <button className="button" type="submit">
           Login
         </button>
+        <p><Link to="/Signup">Dont you have an account ? </Link></p> 
       </form>
-
-      <p>
-        Don't have an account? <Link to="/signup">Register</Link>
-      </p>
     </div>
   );
 }

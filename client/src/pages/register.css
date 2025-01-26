@@ -24,6 +24,7 @@ body {
     margin-bottom: 1.5rem;
   }
   
+  /* Form styling */
   form {
     display: flex;
     flex-direction: column;
