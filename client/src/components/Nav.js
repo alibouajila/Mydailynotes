@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-content">
-        <Link to="/" className="navbar-logo">MyApp</Link>
+        <Link to="/" className="navbar-logo">Mydailynotes</Link>
         <div className="navbar-links">
           {!isAuthenticated ? (
             <>

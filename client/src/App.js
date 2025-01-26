@@ -4,7 +4,8 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Navbar from './components/Nav';
-import { AuthProvider } from './context/AuthContext'; 
+import { AuthProvider } from './context/AuthContext';         
+import Welcome from './pages/Welcome';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
+        <Route path="/" element={<Welcome/>} />
           <Route path="/signup" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/Home" element={<Home />} />

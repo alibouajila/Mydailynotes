@@ -1,0 +1,71 @@
+/* welcome.css */
+.welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+    color: #333;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+  }
+  
+  .welcome-header {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: #4a4e69;
+  }
+  
+  .welcome-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    max-width: 600px;
+    margin-bottom: 30px;
+    color: #5a5c69;
+  }
+  
+  .welcome-buttons {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .welcome-link {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #4a4e69;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .welcome-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #6c757d;
+  }
+  
+  .welcome-link:active {
+    transform: translateY(2px);
+  }
+  
+  @media (max-width: 768px) {
+    .welcome-header {
+      font-size: 2rem;
+    }
+  
+    .welcome-description {
+      font-size: 1rem;
+    }
+  
+    .welcome-buttons {
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+  

@@ -1,63 +1,62 @@
-/* Basic styling for the navbar */
 nav {
-    background-color: #333;
-    padding: 10px 0;  
-    width: 100%;  
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    position: fixed;  
-    top: 0;
-    left: 0;
-    z-index: 1000;
-  }
-  
-  nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 16px;
-    transition: color 0.3s ease;
-  }
-  
-  nav a:hover {
-    color: #f0a500;
-  }
-  
-  nav .navbar-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;  
-    padding: 0 20px; 
-  }
-  
-  nav .navbar-logo {
-    color: white;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  nav .navbar-links {
-    display: flex;
-    align-items: center;
-  }
-  
-  nav .navbar-links button {
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 10px 15px;
-    transition: background-color 0.3s ease;
-  }
-  
-  nav .navbar-links button:hover {
-    background-color: #f0a500;
-  }
-  
-  body {
-    margin-top: 60px;
-  }
-  
+  background-color: #4a4e69; 
+  padding: 20px 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+nav a {
+  color: #ffffff; 
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #c9ada7; 
+}
+
+nav .navbar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+}
+
+nav .navbar-logo {
+  color: #ffffff; 
+  font-weight: bold;
+}
+
+nav .navbar-links {
+  display: flex;
+  align-items: center;
+}
+
+nav .navbar-links button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav .navbar-links button:hover {
+  background-color: #9a8c98; 
+  color: #ffffff;
+}
+
+body {
+  margin-top: 60px; 
+}
