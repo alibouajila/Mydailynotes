@@ -1,3 +1,7 @@
+#home-header{
+  position: relative;
+}
+
 /* Add Note Button */
 #add-note-button {
   position: fixed;

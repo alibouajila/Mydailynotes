@@ -13,7 +13,7 @@ function Home() {
   const [noteContent, setNoteContent] = useState('');
   const [notes, setNotes] = useState([]);
   const [showModal, setShowModal] = useState(false); // State for showing/hiding the modal
-
+  const[name,setname]=useState('');
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (!token || !isAuthenticated) {
@@ -26,7 +26,7 @@ function Home() {
 
       axios
         .get('http://localhost:3001/notes', { headers: { Authorization: `Bearer ${token}` } })
-        .then((response) => setNotes(response.data.notes))
+        .then((response) =>{ setNotes(response.data.notes);setname(response.data.username)})
         .catch((error) => console.error('Error fetching notes:', error));
     }
   }, [isAuthenticated, navigate]);
@@ -76,8 +76,7 @@ function Home() {
   return (
     <div id="home-container">
       <div id="home-header">
-        <h2>Welcome to Your Notes</h2>
-        <p>{message || 'Loading...'}</p>
+        <h2>Welcome {name}</h2>
       </div>
 
       <div id="notes-section">

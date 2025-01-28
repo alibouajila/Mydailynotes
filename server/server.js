@@ -148,7 +148,7 @@ app.get("/notes", async (req, res) => {
         return res.status(404).json({ message: "User not found" });
       }
 
-      res.status(200).json({ notes: user.notes });
+      res.status(200).json({ notes: user.notes , username:user.name});
     } catch (error) {
       res.status(500).json({ message: "Failed to retrieve notes", error });
     }
@@ -185,9 +185,7 @@ app.delete("/notes/:id", async (req, res) => {
       user.notes.splice(noteIndex, 1);
      await Note.findByIdAndDelete(req.params.id)
      await user.save();
-
       console.log(`Note with ID ${req.params.id} deleted`);
-
       res.status(200).json({ message: "Note deleted successfully" });
     } catch (error) {
       console.error("Error deleting note:", error);
