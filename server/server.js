@@ -182,9 +182,9 @@ app.delete("/notes/:id", async (req, res) => {
       if (noteIndex === -1) {
         return res.status(404).json({ message: "Note not found" });
       }
-
       user.notes.splice(noteIndex, 1);
-      await user.save();
+     await Note.findByIdAndDelete(req.params.id)
+     await user.save();
 
       console.log(`Note with ID ${req.params.id} deleted`);
 
