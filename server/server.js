@@ -58,10 +58,11 @@ app.post("/login", async (req, res) => {
     }
 
     const token = jwt.sign({ userId: user._id, email: user.email }, "ali18", { expiresIn: "1h" });
+    const name=user.name
 
     res.status(200).json({
       message: "Login successful!",
-      token,
+      token,name
     });
   } catch (error) {
     console.error(error);

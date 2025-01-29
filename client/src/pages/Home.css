@@ -1,8 +1,12 @@
-#home-header{
-  position: relative;
+#notes-section {
+  padding: 20px;
 }
 
-/* Add Note Button */
+#notemsg {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1.2em;
+}
 #add-note-button {
   position: fixed;
   bottom: 20px;

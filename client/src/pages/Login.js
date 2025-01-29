@@ -22,11 +22,11 @@ function Login() {
 
     try {
       const response = await axios.post('http://localhost:3001/login', loginData);
-
-      const { token } = response.data;  // Adjust according to your response structure
+      const token=response.data.token;
+      const name=response.data.name;
 
       if (token) {
-        login(token); // Call the context's login function
+        login(token,name); // Call the context's login function
         setSuccess('Login successful!');
         setEmail('');
         setPassword('');
