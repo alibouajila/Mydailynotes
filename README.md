@@ -9,7 +9,7 @@ My **Daily Notes App** is designed to help users organize their daily tasks, tho
    - Password protection to keep notes private
 
 2. **Note Management**
-   - Create, edit, and delete notes seamlessly
+   - Create and delete notes seamlessly
    
 ### Technology Stack
 - **Frontend:** React.js for a dynamic and responsive user interface
