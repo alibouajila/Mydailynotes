@@ -1,7 +1,7 @@
-**My Daily Note App**
+**My Daily Notes App**
 
 ### Introduction
-My **Daily Note App** is designed to help users organize their daily tasks, thoughts, and important reminders in a structured and efficient manner. This app provides a simple yet powerful interface where users can jot down their notes,access them and delete them anytime with ease.
+My **Daily Notes App** is designed to help users organize their daily tasks, thoughts, and important reminders in a structured and efficient manner. This app provides a simple yet powerful interface where users can jot down their notes,access them and delete them anytime with ease.
 
 ### Key Features
 1. **User Authentication**
@@ -23,19 +23,29 @@ My **Daily Note App** is designed to help users organize their daily tasks, thou
    ```
 2. Navigate to the project directory:
    ```bash
-   cd daily-note-app
+   cd Mydailynotes
    ```
-3. Install dependencies:
+3. Navigate to the server directory:
+   ```bash
+   cd server
+   ```
+4. Install dependencies:
    ```bash
    npm install
    ```
-4. Set up environment variables:
-   - Create a `.env` file and add your MongoDB connection string and JWT secrets.
 5. Start the backend server:
    ```bash
-   npm run server
+   npm start
    ```
-6. Start the frontend development server:
+6. Navigate to the client directory ( in a new terminal ):
+   ```bash
+   cd client
+   ```
+7. Install dependencies:
+   ```bash
+   npm install
+   ```
+8. Start the frontend server:
    ```bash
    npm start
    ```
@@ -58,5 +68,5 @@ My **Daily Note App** is designed to help users organize their daily tasks, thou
 - **Collaboration features** for shared note-taking with other users
 
 ### Conclusion
-The **Daily Note App** aims to be a simple yet powerful tool for managing daily tasks and notes efficiently. With a focus on usability, security, and accessibility, it provides a seamless experience for users who need an effective digital notebook for their everyday needs.
+My **Daily Note App** aims to be a simple yet powerful tool for managing daily tasks and notes efficiently. With a focus on usability, security, and accessibility, it provides a seamless experience for users who need an effective digital notebook for their everyday needs.
 
