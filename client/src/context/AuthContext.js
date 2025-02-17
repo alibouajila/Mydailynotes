@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-
+import api from '../api/api';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -22,11 +22,15 @@ export const AuthProvider = ({ children }) => {
     setName("Welcome\u00A0\u00A0" + namee);
   };
 
-  const logout = () => {
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('userName'); 
-    setIsAuthenticated(false);
-    setName("");
+  const logout = async () => {
+    try {
+      await api.post('/logout');
+      localStorage.removeItem('authToken');
+      localStorage.removeItem("userName")
+      window.location.href = '/login'; // Redirect to login page
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
   };
 
   return (

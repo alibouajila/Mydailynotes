@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api/api'; // Import the Axios instance
 import { AuthContext } from '../context/AuthContext';
 import Notes from '../components/Notes';
 import './Home.css';
@@ -12,42 +12,37 @@ function Home() {
   const [noteTitle, setNoteTitle] = useState('');
   const [noteContent, setNoteContent] = useState('');
   const [notes, setNotes] = useState([]);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
+
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (!token || !isAuthenticated) {
+    if (!isAuthenticated) {
       navigate('/login');
     } else {
-      axios
-        .get('http://localhost:3001/home', { headers: { Authorization: `Bearer ${token}` } })
+      // Fetch home data
+      api.get('/home')
         .then((response) => setMessage(response.data.message))
         .catch(() => navigate('/login'));
-
-      axios
-        .get('http://localhost:3001/notes', { headers: { Authorization: `Bearer ${token}` } })
-        .then((response) =>{ setNotes(response.data.notes)})
+  
+      // Fetch notes
+      api.get('/notes')
+        .then((response) => setNotes(response.data.notes))
         .catch((error) => console.error('Error fetching notes:', error));
     }
   }, [isAuthenticated, navigate]);
 
   const handleCreateNote = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem('authToken');
     if (!noteTitle || !noteContent) {
       alert('Please fill in both the title and content!');
       return;
     }
     try {
-      const response = await axios.post(
-        'http://localhost:3001/notes',
-        { title: noteTitle, content: noteContent },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const response = await api.post('/notes', { title: noteTitle, content: noteContent });
       setNotes((prevNotes) => [...prevNotes, response.data.note]);
       alert(response.data.message);
       setNoteTitle('');
       setNoteContent('');
-      setShowModal(false); // Close the modal after creating the note
+      setShowModal(false);
     } catch (error) {
       console.error('Error creating note:', error);
       alert('An error occurred while creating the note.');
@@ -55,11 +50,8 @@ function Home() {
   };
 
   const handleDeleteNote = async (noteId) => {
-    const token = localStorage.getItem('authToken');
     try {
-      const response = await axios.delete(`http://localhost:3001/notes/${noteId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await api.delete(`/notes/${noteId}`);
       if (response.status === 200) {
         alert(response.data.message);
         setNotes((prevNotes) => prevNotes.filter((note) => note._id !== noteId));
@@ -74,7 +66,6 @@ function Home() {
 
   return (
     <div>
-
       <div id="notes-section">
         {notes.length === 0 ? (
           <p id="notemsg">You don't have any notes yet.</p>

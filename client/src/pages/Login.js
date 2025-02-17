@@ -10,7 +10,7 @@ function Login() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // Use context's login function
+  const { login } = useContext(AuthContext); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,17 +21,21 @@ function Login() {
     };
 
     try {
-      const response = await axios.post('http://localhost:3001/login', loginData);
-      const token=response.data.token;
+      const response = await axios.post(
+        'http://localhost:3001/login',
+        loginData,
+        { withCredentials: true } 
+      );
+            const token=response.data.token;
       const name=response.data.name;
 
       if (token) {
-        login(token,name); // Call the context's login function
+        login(token,name); 
         setSuccess('Login successful!');
         setEmail('');
         setPassword('');
         setError(null);
-        navigate('/Home'); // Redirect to Home page
+        navigate('/Home'); 
       } else {
         setError('Invalid credentials!');
       }
@@ -42,7 +46,7 @@ function Login() {
   useEffect(() => {
     const token = localStorage.getItem('authToken');
     if (token) {
-      navigate('/home'); // Redirect to home if logged in
+      navigate('/home'); 
     }
   }, [navigate]);
   return (

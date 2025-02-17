@@ -5,7 +5,8 @@ const Note = require("./models/note");
 const cors = require("cors");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const authMiddleware = require("./middlewares/authMiddleware"); // Import auth middleware
+const authMiddleware = require("./middlewares/authMiddleware"); 
+const cookieParser = require('cookie-parser'); 
 
 mongoose
   .connect("mongodb://localhost:27017/Mydailynotes")
@@ -13,12 +14,15 @@ mongoose
   .catch((err) => console.log(err));
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000", 
+  credentials: true, 
+}));
 app.use(express.json());
+app.use(cookieParser()); // Use cookie-parser middleware to parse cookies
 
-app.get("/", (req, res) => {
-  console.log("Success");
-});
+const JWT_SECRET = "ali18"; // Secret for access tokens
+const JWT_REFRESH_SECRET = "aliali18a"; // Secret for refresh tokens
 
 // Register route
 app.post("/register", async (req, res) => {
@@ -56,14 +60,15 @@ app.post("/login", async (req, res) => {
       return res.status(400).json({ status: "error", message: "Invalid credentials" });
     }
 
-    const token = jwt.sign({ userId: user._id, email: user.email }, "ali18", { expiresIn: "1h" });
-    const refreshToken = jwt.sign({ userId: user._id }, "aliali18a", { expiresIn: "7d" });
+    const token = jwt.sign({ userId: user._id, email: user.email }, JWT_SECRET, { expiresIn: "1h" });
+    const refreshToken = jwt.sign({ userId: user._id }, JWT_REFRESH_SECRET, { expiresIn: "7d" });
 
-    res.cookie("refreshToken", refreshToken, { 
+    res.cookie("refreshToken", refreshToken, {
       httpOnly: true, 
-      secure: false, // Set to true in production (HTTPS required)
+      secure: false, 
       sameSite: "Strict" 
     });
+    
 
     res.status(200).json({
       message: "Login successful!",
@@ -77,22 +82,24 @@ app.post("/login", async (req, res) => {
 });
 
 // Refresh token route
-app.post("/refresh-token", (req, res) => {
-  const refreshToken = req.cookies.refreshToken;
-  if (!refreshToken) {
-    return res.status(401).json({ message: "Unauthorized - No refresh token" });
-  }
+app.post('/refresh-token', (req, res) => {
+  const refreshToken = req.cookies.refreshToken; // Get from cookies
 
-  jwt.verify(refreshToken, "aliali18a", (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ message: "Unauthorized - Invalid refresh token" });
-    }
+  if (!refreshToken) return res.sendStatus(401); // No token → Unauthorized
 
-    const newAccessToken = jwt.sign({ userId: decoded.userId }, "ali18", { expiresIn: "1h" });
+  jwt.verify(refreshToken, JWT_REFRESH_SECRET, (err, user) => { // Corrected the secret name
+    if (err) return res.sendStatus(403); // Invalid token
 
-    res.status(200).json({ token: newAccessToken });
+    const newAccessToken = jwt.sign(
+      { userId: user.userId, email: user.email },
+      JWT_SECRET, // Use the correct access token secret
+      { expiresIn: '60s' } // New token for 1 minute
+    );
+
+    res.json({ token: newAccessToken });
   });
 });
+
 
 // Home page (Protected)
 app.get("/home", authMiddleware, (req, res) => {
