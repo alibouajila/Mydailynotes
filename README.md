@@ -1,7 +1,7 @@
 **My Daily Note App**
 
 ### Introduction
-My **Daily Note App** is designed to help users organize their daily tasks, thoughts, and important reminders in a structured and efficient manner. This app provides a simple yet powerful interface where users can jot down their notes, categorize them, and access them anytime with ease.
+My **Daily Note App** is designed to help users organize their daily tasks, thoughts, and important reminders in a structured and efficient manner. This app provides a simple yet powerful interface where users can jot down their notes,access them and delete them anytime with ease.
 
 ### Key Features
 1. **User Authentication**
